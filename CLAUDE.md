@@ -56,14 +56,14 @@ Memory documents are stored in the @docs/ directory.
 
 project-root/
 ├── docs/
-│   ├── requirement-design.md
-│   ├── technical-design.md
+│   ├── requirements.md
+│   ├── tech-design.md
 │   ├── development-progress.md
 │   ├── develop-logs/
 │   └── ...
 
-- @docs/requirement-design.md: Project requirements and design.
-- @docs/technical-design.md: The technical design of the whole project and key functional modules.
+- @docs/requirements.md: Project requirements and design.
+- @docs/tech-design.md: The technical design of the whole project and key functional modules.
 - @docs/development-progress.md: The ongoing progress, completed tasks, and next steps.
 - @docs/develop-logs/*: Logs of development process, managed following the rules in @docs/development-progress.md.
 
