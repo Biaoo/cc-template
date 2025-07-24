@@ -52,20 +52,20 @@ This section is for recording long-term project memory and tracking development 
 
 ### 1. Memory Documents
 
-Memory documents are stored in the @docs/ directory.
+Memory documents are stored in the @.claude/docs/ directory.
 
 project-root/
-├── docs/
+├── .claude/docs/
 │   ├── requirements.md
 │   ├── tech-design.md
 │   ├── development-progress.md
 │   ├── develop-logs/
 │   └── ...
 
-- @docs/requirements.md: Project requirements and design.
-- @docs/tech-design.md: The technical design of the whole project and key functional modules.
-- @docs/development-progress.md: The ongoing progress, completed tasks, and next steps.
-- @docs/develop-logs/*: Logs of development process, managed following the rules in @docs/development-progress.md.
+- @.claude/docs/requirements.md: Project requirements and design.
+- @.claude/docs/tech-design.md: The technical design of the whole project and key functional modules.
+- @.claude/docs/development-progress.md: The ongoing progress, completed tasks, and next steps.
+- @.claude/docs/develop-logs/*: Logs of development process, managed following the rules in @.claude/docs/development-progress.md.
 
 ### 2. How to Use & Maintain
 
