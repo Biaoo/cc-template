@@ -10,4 +10,4 @@ claude mcp add context7 -- npx -y @upstash/context7-mcp
 
 ```bash
 claude mcp add playwright -- npx -y @playwright/mcp@latest
-```w
+```
