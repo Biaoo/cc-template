@@ -1,0 +1,1 @@
+Use deno check to check the type error in code:
