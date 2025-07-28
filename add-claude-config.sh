@@ -70,14 +70,43 @@ print_status "Template repository: $TEMPLATE_REPO"
 print_status "Submodule name: $SUBMODULE_NAME"
 print_status "Current directory: $(pwd)"
 
-# Step 1: Add submodule
-print_status "Adding submodule..."
-if git submodule add "$TEMPLATE_REPO" "$SUBMODULE_NAME"; then
-    print_success "Submodule added successfully"
-else
-    print_error "Failed to add submodule"
-    print_error "The submodule might already exist, or there might be network issues"
-    exit 1
+# Step 1: Check if submodule already exists
+if [ -d "$SUBMODULE_NAME" ]; then
+    print_warning "Submodule directory '$SUBMODULE_NAME' already exists"
+    
+    # Check if it's already a submodule
+    if git submodule status "$SUBMODULE_NAME" >/dev/null 2>&1; then
+        print_status "Found existing submodule, updating it..."
+        if git submodule update --init --recursive "$SUBMODULE_NAME"; then
+            print_success "Existing submodule updated successfully"
+        else
+            print_error "Failed to update existing submodule"
+            exit 1
+        fi
+    else
+        print_error "Directory '$SUBMODULE_NAME' exists but is not a submodule"
+        read -p "Do you want to remove it and add as submodule? (y/N): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            rm -rf "$SUBMODULE_NAME"
+            print_status "Removed existing directory"
+        else
+            print_error "Cannot proceed with existing directory"
+            exit 1
+        fi
+    fi
+fi
+
+# Add submodule if it doesn't exist
+if [ ! -d "$SUBMODULE_NAME" ]; then
+    print_status "Adding submodule..."
+    if git submodule add "$TEMPLATE_REPO" "$SUBMODULE_NAME"; then
+        print_success "Submodule added successfully"
+    else
+        print_error "Failed to add submodule"
+        print_error "Please check network connection and repository URL"
+        exit 1
+    fi
 fi
 
 # Step 2: Configure sparse-checkout
