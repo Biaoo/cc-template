@@ -2,9 +2,11 @@
 
 `@code-check.md <file-or-folder-path>`
 
+If no path is provided, defaults to current project root directory (`.`).
+
 ## Context
 
-- Target File or Folder Path: $ARGUMENTS
+- Target File or Folder Path: $ARGUMENTS (defaults to `.` if not provided)
 - Use UV to Run the commands.
 - Type check: `uv run mypy`
 - Lint: `uv run ruff`
