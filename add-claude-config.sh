@@ -1,0 +1,149 @@
+#!/bin/bash
+
+# Add Claude Config from Template Repository
+# This script should be run in the target project to add claude configuration as submodule
+# Usage: curl -sSL https://raw.githubusercontent.com/Biaoo/my-cc-template/main/add-claude-config.sh | bash
+# Or: wget -O- https://raw.githubusercontent.com/Biaoo/my-cc-template/main/add-claude-config.sh | bash
+
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Configuration
+TEMPLATE_REPO="https://github.com/Biaoo/cc-template.git"
+SUBMODULE_NAME=".claude-template"
+
+# Function to print colored output
+print_status() {
+    echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+print_success() {
+    echo -e "${GREEN}[SUCCESS]${NC} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}[WARNING]${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+# Function to show usage
+show_usage() {
+    echo "Usage: $0 [submodule-name]"
+    echo ""
+    echo "Arguments:"
+    echo "  submodule-name      Optional. Name for submodule directory (default: .claude-template)"
+    echo ""
+    echo "This script must be run in the root of your target project."
+    echo ""
+    echo "Examples:"
+    echo "  $0                    # Use default name .claude-template"
+    echo "  $0 claude-config      # Use custom name claude-config"
+}
+
+# Parse arguments
+if [ $# -gt 1 ]; then
+    print_error "Too many arguments"
+    show_usage
+    exit 1
+fi
+
+SUBMODULE_NAME="${1:-$SUBMODULE_NAME}"
+
+# Check if we're in a git repository
+if [ ! -d ".git" ]; then
+    print_error "This directory is not a git repository"
+    print_error "Please run this script in the root of your git project"
+    exit 1
+fi
+
+print_status "Adding Claude configuration from template repository..."
+print_status "Template repository: $TEMPLATE_REPO"
+print_status "Submodule name: $SUBMODULE_NAME"
+print_status "Current directory: $(pwd)"
+
+# Step 1: Add submodule
+print_status "Adding submodule..."
+if git submodule add "$TEMPLATE_REPO" "$SUBMODULE_NAME"; then
+    print_success "Submodule added successfully"
+else
+    print_error "Failed to add submodule"
+    print_error "The submodule might already exist, or there might be network issues"
+    exit 1
+fi
+
+# Step 2: Configure sparse-checkout
+print_status "Configuring sparse-checkout for .claude directory only..."
+cd "$SUBMODULE_NAME"
+
+# Enable sparse-checkout
+git config core.sparseCheckout true
+
+# Configure to only include .claude directory
+echo ".claude/*" > .git/info/sparse-checkout
+
+# Apply sparse-checkout
+if git read-tree -m -u HEAD; then
+    print_success "Sparse-checkout configured - only .claude directory will be checked out"
+else
+    print_error "Failed to apply sparse-checkout"
+    exit 1
+fi
+
+# Go back to project root
+cd ..
+
+# Step 3: Create symbolic link
+print_status "Creating symbolic link to .claude directory..."
+if [ -e ".claude" ]; then
+    print_warning ".claude already exists in current project"
+    read -p "Do you want to backup and replace it? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        mv .claude .claude.backup.$(date +%Y%m%d_%H%M%S)
+        print_status "Existing .claude backed up"
+    else
+        print_warning "Skipping symbolic link creation"
+        print_success "Setup completed without symbolic link"
+        print_status "You can manually create the link later with:"
+        print_status "  ln -s $SUBMODULE_NAME/.claude .claude"
+        exit 0
+    fi
+fi
+
+# Create symbolic link
+if ln -s "$SUBMODULE_NAME/.claude" .claude; then
+    print_success "Symbolic link created: .claude -> $SUBMODULE_NAME/.claude"
+else
+    print_error "Failed to create symbolic link"
+    exit 1
+fi
+
+# Step 4: Show completion message and next steps
+print_success "Claude configuration setup completed successfully!"
+echo ""
+print_status "What was done:"
+echo "  ✓ Added $TEMPLATE_REPO as submodule '$SUBMODULE_NAME'"
+echo "  ✓ Configured sparse-checkout to only include .claude directory"
+echo "  ✓ Created symbolic link .claude -> $SUBMODULE_NAME/.claude"
+echo ""
+print_status "Next steps:"
+echo "  1. Commit the changes:"
+echo "     git add ."
+echo "     git commit -m 'Add Claude configuration as submodule'"
+echo ""
+echo "  2. To update Claude configuration in the future:"
+echo "     git submodule update --remote $SUBMODULE_NAME"
+echo ""
+echo "  3. Your .claude configuration is now ready to use!"
+echo ""
+print_status "Alternative one-time setup (if you prefer not to use submodules):"
+echo "  git subtree add --prefix=.claude $TEMPLATE_REPO main --squash"
