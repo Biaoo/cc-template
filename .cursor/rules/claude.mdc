@@ -1,61 +1,50 @@
----
-alwaysApply: true
----
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Introduction
 
-This project is a Python-based GWP (Global Warming Potential) validation system that helps users verify if their GWP values are reasonable by comparing them with similar materials from a database using semantic search and statistical analysis.
+<!-- example-start -->
+This project is a TypeScript SDK and Auto-Generate tool for xxxx data management.
+<!-- example-end -->
 
 ## Dependencies
 
-Dependencies will be managed using UV (uv.lock file) when the project is initialized.
-To add a new dependency, use `uv add <package-name>` instead of manually editing dependency files.
+<!-- example-start -->
+Dependencies could be found in @package.json.
+If you want to add a new dependency, please run `npm install` to install it instead of manually adding it to the @package.json.
+<!-- example-end -->
 
 ## Commands
 
-Common commands will be available through UV scripts and can be found in pyproject.toml when the project is initialized.
-Typical commands include:
-
-- `uv run app` - Start the FastAPI server
-- `uv run test` - Run tests with pytest
-- `uv run ruff` - Run code linting
-- `uv run black` - Format code
-- `uv run mypy` - Run type checking
+<!-- example-start -->
+Common commands could be found in @package.json
+<!-- example-end -->
 
 ## Architecture
 
 ### Project Structure
 
-- **`src/`** - Main application source code
-  - **`src/core/`** - Core business logic and base classes
-  - **`src/data/`** - Data management and database operations
-  - **`src/search/`** - Search and similarity matching functionality
-  - **`src/validation/`** - GWP validation algorithms and statistics
-  - **`src/api/`** - FastAPI endpoints and request/response models
-  - **`src/ui/`** - Gradio web interface
-  - **`src/utils/`** - Utility functions and helpers
-  - **`src/config/`** - Configuration management
-- **`tests/`** - Test files (unit and integration tests)
-- **`scripts/`** - Development and deployment scripts
-- **`docker/`** - Docker configuration files
-- **`docs/`** - Project documentation
+<!-- example-start -->
+
+- **`src/core/`** - Core classes and base functionality
+- **`src/types/`** - Generated TypeScript types from JSON schemas
+- **`src/schemas/`** - Generated Zod schemas for validation
+- **`src/utils/`** - Utility functions
+- **`scripts/`** - Code generation scripts
+- **`test/`** - Test files
+- **`examples/`** - Path used for writing SDK usage examples
+<!-- example-end -->
 
 ### Key Tech Stack
 
-- Python 3.10+
-- UV (dependency management)
-- FastAPI (REST API framework)
-- Gradio (web interface)
-- PostgreSQL (database)
-- MinIO (object storage)
-- PyTorch (ML operations)
-- scikit-learn (statistical analysis)
-- faiss-cpu (vector similarity search)
-- pytest (testing)
-- Docker (containerization)
+<!-- example-start -->
+- TypeScript
+- Zod
+- Jest
+- ESLint
+- Prettier
+<!-- example-end -->
 
 ## Memory & Progress Management
 
@@ -67,16 +56,16 @@ Memory documents are stored in the @spec/ directory.
 
 project-root/
 ├── spec/
-│ ├── requirements.md
-│ ├── tech-design.md
-│ ├── development-progress.md
-│ ├── develop-logs/
-│ └── ...
+│   ├── requirements.md
+│   ├── tech-design.md
+│   ├── development-progress.md
+│   ├── develop-logs/
+│   └── ...
 
 - @spec/requirements.md: Project requirements and design.
 - @spec/tech-design.md: The technical design of the whole project and key functional modules.
 - @spec/development-progress.md: The ongoing progress, completed tasks, and next steps.
-- @spec/develop-logs/\*: Logs of development process, managed following the rules in @spec/development-progress.md.
+- @spec/develop-logs/*: Logs of development process, managed following the rules in @spec/development-progress.md.
 
 ### 2. How to Use & Maintain
 
@@ -88,25 +77,11 @@ project-root/
 
 ### Development Notes
 
-- The project uses Python 3.10+ with UV for dependency management
-- Code quality is maintained with black (formatting), ruff (linting), and mypy (type checking)
-- pytest is used for testing with coverage reporting
-- Git strategy and development workflow can be found in @spec/development-progress.md
-- Follow the modular architecture with clear separation between data, search, validation, and API layers
-- All database operations should go through the data management module
-- Vector operations should use faiss for efficiency
-- API responses must follow the standardized JSON format defined in requirements
-- Use proper logging and error handling throughout the application
-
-### Remote Code Execution
-
-- The project code will run on a remote server. If you need to execute commands in the terminal, use `ssh -p <port> <username>@<host> <command>`.
-- The remote project root path is `/app/`.
-- Local project code and files are kept in sync with the remote server via SFTP, so you only need to modify local files when making changes.
-
-#### Remote Host Information
-
-- host: 192.168.8.8
-- port: 31522
-- username: root
-- path: /app
+<!-- example-start -->
+- The project uses TypeScript with strict mode enabled
+- ESLint and Prettier are configured for code quality, command: `npm run lint` and `npm run format`
+- Jest is used for testing with ts-jest preset
+- Git strategy could be found in @spec/git-strategy.md, always follow the strategy when developing
+- Don't modify the types in @src/types/ and @src/schemas/ directly, they are generated by @scripts/generate-types.ts and @scripts/generate-zod-schemas.ts.
+- Instead of `npm build`, you can use `tsx` to run the test script.
+- <!-- example-end -->
