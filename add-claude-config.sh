@@ -143,6 +143,15 @@ else
     exit 1
 fi
 
+# Verify .claude directory exists
+if [ ! -d ".claude" ]; then
+    print_error ".claude directory not found in submodule"
+    print_error "The template repository might not contain a .claude directory"
+    exit 1
+fi
+
+print_success "Found .claude directory in submodule"
+
 # Go back to project root
 cd ..
 
