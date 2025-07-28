@@ -9,7 +9,7 @@ If no path is provided, defaults to current project root directory (`.`).
 - Target File or Folder Path: $ARGUMENTS (defaults to `.` if not provided)
 - Use UV to Run the commands.
 - Type check: `uv run mypy`, use `> .mypy/<output_file_name>.txt` to save the output to a file.
-- Ruff fix: `uv run ruff fix <file-or-folder-path> --safe` to fix the code.
+- Ruff fix: `uv run ruff check <file-or-folder-path> --fix` to fix the code.
 - Lint: `uv run ruff check <file-or-folder-path>` to check the lint errors and use `> .ruff/<output_file_name>.txt` to save the output to a file.
 - Format: `uv run black`
 
@@ -25,4 +25,5 @@ If the target is a folder, you should check the code in the folder one by one.
 3. Use `uv run ruff fix <file-or-folder-path> --safe` to fix the code.
 4. Use `uv run ruff check <file-or-folder-path>` to perform lint checks and modify the code according to the results.
 5. Use `uv run black` to format the code.
-6. Summarize the check results and modifications made.
+6. Run Type check and Ruff check again after the code is modified to ensure the code is correct.
+7. Summarize the check results and modifications made.
