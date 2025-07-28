@@ -31,7 +31,7 @@ This template helps maintain consistency across Claude Code projects and ensures
 - [ ] UI Design File Management
 - [ ] Requirements File Management
 
-## How to Use in Cursor or other AI-IDE Extensions like Tongyi Lingma
+## How to Use
 
 ### In Claude Code
 
