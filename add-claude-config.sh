@@ -88,8 +88,10 @@ if [ -d "$SUBMODULE_NAME" ]; then
         read -p "Do you want to remove it and add as submodule? (y/N): " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
+            # Remove from git index first, then remove directory
+            git rm -r --cached "$SUBMODULE_NAME" 2>/dev/null || true
             rm -rf "$SUBMODULE_NAME"
-            print_status "Removed existing directory"
+            print_status "Removed existing directory and git index entry"
         else
             print_error "Cannot proceed with existing directory"
             exit 1
@@ -100,12 +102,26 @@ fi
 # Add submodule if it doesn't exist
 if [ ! -d "$SUBMODULE_NAME" ]; then
     print_status "Adding submodule..."
+    
+    # Try to add submodule
     if git submodule add "$TEMPLATE_REPO" "$SUBMODULE_NAME"; then
         print_success "Submodule added successfully"
     else
-        print_error "Failed to add submodule"
-        print_error "Please check network connection and repository URL"
-        exit 1
+        print_warning "Failed to add submodule normally, trying to clean git state..."
+        
+        # Clean up any remnants in git
+        git rm -r --cached "$SUBMODULE_NAME" 2>/dev/null || true
+        git config --file .gitmodules --remove-section "submodule.$SUBMODULE_NAME" 2>/dev/null || true
+        git config --remove-section "submodule.$SUBMODULE_NAME" 2>/dev/null || true
+        
+        # Try again
+        if git submodule add "$TEMPLATE_REPO" "$SUBMODULE_NAME"; then
+            print_success "Submodule added successfully after cleanup"
+        else
+            print_error "Failed to add submodule even after cleanup"
+            print_error "Please manually run: git rm -r --cached $SUBMODULE_NAME"
+            exit 1
+        fi
     fi
 fi
 
