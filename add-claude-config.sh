@@ -138,12 +138,20 @@ if [ -f ".git" ]; then
     # Submodule case: .git is a file pointing to the real git directory
     GIT_DIR=$(cat .git | sed 's/gitdir: //')
     mkdir -p "$GIT_DIR/info"
-    echo ".claude/*" > "$GIT_DIR/info/sparse-checkout"
+    SPARSE_CHECKOUT_FILE="$GIT_DIR/info/sparse-checkout"
 else
     # Regular repo case: .git is a directory
     mkdir -p .git/info
-    echo ".claude/*" > .git/info/sparse-checkout
+    SPARSE_CHECKOUT_FILE=".git/info/sparse-checkout"
 fi
+
+# Remove existing sparse-checkout if it's a directory
+if [ -d "$SPARSE_CHECKOUT_FILE" ]; then
+    rm -rf "$SPARSE_CHECKOUT_FILE"
+fi
+
+# Create sparse-checkout file
+echo ".claude/*" > "$SPARSE_CHECKOUT_FILE"
 
 # Apply sparse-checkout
 if git read-tree -m -u HEAD; then
