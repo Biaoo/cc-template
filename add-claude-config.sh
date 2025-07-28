@@ -133,6 +133,7 @@ cd "$SUBMODULE_NAME"
 git config core.sparseCheckout true
 
 # Configure to only include .claude directory
+mkdir -p .git/info
 echo ".claude/*" > .git/info/sparse-checkout
 
 # Apply sparse-checkout
