@@ -101,31 +101,74 @@ fi
 # Go back to project root
 cd ..
 
-# Step 3: Create symbolic link
-print_status "Creating symbolic link to .claude directory..."
-if [ -e ".claude" ]; then
-    print_warning ".claude already exists in current project"
-    read -p "Do you want to backup and replace it? (y/N): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        mv .claude .claude.backup.$(date +%Y%m%d_%H%M%S)
-        print_status "Existing .claude backed up"
-    else
-        print_warning "Skipping symbolic link creation"
-        print_success "Setup completed without symbolic link"
-        print_status "You can manually create the link later with:"
-        print_status "  ln -s $SUBMODULE_NAME/.claude .claude"
-        exit 0
-    fi
-fi
+# Step 3: Choose setup method
+print_status "Choose how to setup .claude directory:"
+echo "1) Create symbolic link (recommended - stays synced with template)"
+echo "2) Copy files (independent copy - you can modify freely)"
+read -p "Enter your choice (1/2): " -n 1 -r
+echo
 
-# Create symbolic link
-if ln -s "$SUBMODULE_NAME/.claude" .claude; then
-    print_success "Symbolic link created: .claude -> $SUBMODULE_NAME/.claude"
-else
-    print_error "Failed to create symbolic link"
-    exit 1
-fi
+case $REPLY in
+    1)
+        # Create symbolic link
+        print_status "Creating symbolic link to .claude directory..."
+        if [ -e ".claude" ]; then
+            print_warning ".claude already exists in current project"
+            read -p "Do you want to backup and replace it? (y/N): " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                mv .claude .claude.backup.$(date +%Y%m%d_%H%M%S)
+                print_status "Existing .claude backed up"
+            else
+                print_warning "Skipping symbolic link creation"
+                print_success "Setup completed without symbolic link"
+                print_status "You can manually create the link later with:"
+                print_status "  ln -s $SUBMODULE_NAME/.claude .claude"
+                exit 0
+            fi
+        fi
+
+        # Create symbolic link
+        if ln -s "$SUBMODULE_NAME/.claude" .claude; then
+            print_success "Symbolic link created: .claude -> $SUBMODULE_NAME/.claude"
+        else
+            print_error "Failed to create symbolic link"
+            exit 1
+        fi
+        ;;
+    2)
+        # Copy files
+        print_status "Copying .claude directory..."
+        if [ -e ".claude" ]; then
+            print_warning ".claude already exists in current project"
+            read -p "Do you want to backup and replace it? (y/N): " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                mv .claude .claude.backup.$(date +%Y%m%d_%H%M%S)
+                print_status "Existing .claude backed up"
+            else
+                print_warning "Skipping copy operation"
+                print_success "Setup completed without copying files"
+                print_status "You can manually copy later with:"
+                print_status "  cp -r $SUBMODULE_NAME/.claude .claude"
+                exit 0
+            fi
+        fi
+
+        # Copy the .claude directory
+        if cp -r "$SUBMODULE_NAME/.claude" .claude; then
+            print_success "Files copied: $SUBMODULE_NAME/.claude -> .claude"
+            print_status "Note: This is an independent copy. Updates to template won't auto-sync."
+        else
+            print_error "Failed to copy .claude directory"
+            exit 1
+        fi
+        ;;
+    *)
+        print_error "Invalid choice. Please run the script again and choose 1 or 2."
+        exit 1
+        ;;
+esac
 
 # Step 4: Show completion message and next steps
 print_success "Claude configuration setup completed successfully!"
