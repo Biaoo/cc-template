@@ -4,6 +4,8 @@
 
 A structured project template designed for Claude Code workflows with comprehensive documentation and development process management.
 
+> This template also applies to other AI-IDE extensions like Cline, Tongyi Lingma, etc., but the test effect is better in Claude Code and Cursor.
+
 ## What This Template Provides
 
 - **CLAUDE.md Configuration** - Pre-configured guidance file for Claude Code interactions

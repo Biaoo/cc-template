@@ -1,8 +1,10 @@
-# Claude 代码项目模板
+# Claude Code项目模板
 
 **语言切换**: [English](README.md) | [中文](README.zh-CN.md)
 
 一个专为 Claude Code 工作流程设计的结构化项目模板，包含全面的文档和开发过程管理。
+
+> 此模板也适用于其他 AI-IDE 扩展，如 Cline, Tongyi Lingma等, 但目前测试效果在Claude Code 和 Cursor中效果较好。
 
 ## 此模板提供的内容
 
