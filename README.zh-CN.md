@@ -42,5 +42,6 @@
 
 ### 在 Cursor 或其他 AI-IDE 扩展（如通义灵码）中
 
-在聊天窗口中添加文件内容，然后按照命令用法输入参数内容。
-例如，如果您想使用 code-check 命令检查 `src/` 文件夹中的 Python 代码，可以在聊天窗口中输入 `@code-check.md src/`。
+- 将 Claude.md 文件内容添加到项目规则中，如 `.cursor/rules/Claude.md` 或 `.lingma/rules/Claude.md`，并在规则设置中设置为“始终应用”。
+- 在聊天窗口中添加文件内容，然后按照命令用法输入参数内容。
+- 例如，如果您想使用 code-check 命令检查 `src/` 文件夹中的 Python 代码，可以在聊天窗口中输入 `@code-check.md src/`。
