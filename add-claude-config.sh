@@ -133,8 +133,17 @@ cd "$SUBMODULE_NAME"
 git config core.sparseCheckout true
 
 # Configure to only include .claude directory
-mkdir -p .git/info
-echo ".claude/*" > .git/info/sparse-checkout
+# Handle both .git directory and .git file (for submodules)
+if [ -f ".git" ]; then
+    # Submodule case: .git is a file pointing to the real git directory
+    GIT_DIR=$(cat .git | sed 's/gitdir: //')
+    mkdir -p "$GIT_DIR/info"
+    echo ".claude/*" > "$GIT_DIR/info/sparse-checkout"
+else
+    # Regular repo case: .git is a directory
+    mkdir -p .git/info
+    echo ".claude/*" > .git/info/sparse-checkout
+fi
 
 # Apply sparse-checkout
 if git read-tree -m -u HEAD; then
