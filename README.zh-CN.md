@@ -16,6 +16,7 @@
 
 ```
 ├── CLAUDE.md                    # Claude Code 配置和说明
+├── .claude/commands/            # 预配置的 Claude Code 交互命令
 ├── spec/
 │   ├── requirements.md          # 项目需求和设计
 │   ├── tech-design.md           # 技术架构文档

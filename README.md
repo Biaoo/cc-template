@@ -16,6 +16,7 @@ A structured project template designed for Claude Code workflows with comprehens
 
 ```
 ├── CLAUDE.md                    # Claude Code configuration and instructions
+├── .claude/commands/            # Pre-configured commands for Claude Code interactions
 ├── spec/
 │   ├── requirements.md          # Project requirements and design
 │   ├── tech-design.md           # Technical architecture documentation
