@@ -11,12 +11,14 @@ This file only records major milestones, the development task list, and the late
 
 For each task, the development log is recorded under the @docs/develop-logs/ path. The log file is named as [date]+[task name], for example: `[2025-07-11]-generate.md`
 
+**Important**: When creating a new development log, you must use the current system date in the format `YYYY-MM-DD`. Do not copy the date from existing files.
+
 Each development task log file includes the following content:
 
 ```md
 # [Task Name] - 
 
-**Date**: 2025-07-11  
+**Date**: [Current Date YYYY-MM-DD] 
 **Task Status**: [In Progress/Completed/Paused]
 
 ## Task Description

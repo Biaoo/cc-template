@@ -15,11 +15,13 @@
 4. According to the task plan, start executing the development task, and create multiple parallel subtasks if necessary.
 5. During the execution of the task, record and update important progress in the task log file.
 
+**Important**: When creating a new development log file,you need to run `Get-Date -Format "yyyy-MM-dd"` to obtain the prefix of the file name, in the format `[YYYY-MM-DD]-task-name.md`. Do not copy the date from any existing file.
+
 According to the requirements, plan and begin a new task follow the following steps:
 
 ## Output
 
 1. **Code**: High-quality task code.
-2. **Task Log**: Task log file.
+2. **Task Log**: Task log file with current date in filename.
 3. **Task Progress**: Task progress.
 4. **Next Steps**: Summary of the next steps.
