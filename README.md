@@ -45,3 +45,7 @@ Just type `/` in Claude Code, you can see the commands list, and `Tab` to select
 - Add the Claude.md content to the project rules like `.cursor/rules/Claude.md` or `.lingma/rules/Claude.md`, and set it 'Always Apply' in the rules settings.
 - Add the file content in Chat window, and type the ARGUMENTS content follow the command usage.
 - For example, if you want to use code-check command to check your python code in `src/` folder, you can type `@code-check.md src/` in the Chat window.
+
+## How to Update
+
+- Commands content will be updated regularly, you can use `.claude/commands/sync-commands.md` command to sync the latest content to the project.

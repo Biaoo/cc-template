@@ -1,10 +1,10 @@
-# Claude Code项目模板
+# Claude Code 项目模板
 
 **语言切换**: [English](README.md) | [中文](README.zh-CN.md)
 
 一个专为 Claude Code 工作流程设计的结构化项目模板，包含全面的文档和开发过程管理。
 
-> 此模板也适用于其他 AI-IDE 扩展，如 Cline, Tongyi Lingma等, 但目前测试效果在Claude Code 和 Cursor中效果较好。
+> 此模板也适用于其他 AI-IDE 扩展，如 Cline, Tongyi Lingma 等, 但目前测试效果在 Claude Code 和 Cursor 中效果较好。
 
 ## 此模板提供的内容
 
@@ -45,3 +45,7 @@
 - 将 Claude.md 文件内容添加到项目规则中，如 `.cursor/rules/Claude.md` 或 `.lingma/rules/Claude.md`，并在规则设置中设置为“始终应用”。
 - 在聊天窗口中添加文件内容，然后按照命令用法输入参数内容。
 - 例如，如果您想使用 code-check 命令检查 `src/` 文件夹中的 Python 代码，可以在聊天窗口中输入 `@code-check.md src/`。
+
+## 如何更新
+
+Commands 内容将随时更新, 需要拉取最新内容时, 可以使用`.claude/commands/sync-commands.md`命令, 将更新后的内容同步到项目中。
