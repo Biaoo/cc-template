@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run ruff:*)",
+      "Bash(uv run mypy:*)",
+      "Bash(uv run black:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Remote server: <username>@<host>:<port>, path: /app. Use SSH for remote execution. To track the remote stdout:  ssh -t -o \"RequestTTY=force\" <username>@<host> -p <port>' "
+          }
+        ]
+      }
+    ]
+  }
+}
