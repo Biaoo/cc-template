@@ -26,4 +26,5 @@ If the target is a folder, you should check the code in the folder one by one.
 4. Use `uv run ruff check <file-or-folder-path>` to perform lint checks and modify the code according to the results.
 5. Use `uv run black` to format the code.
 6. Run Type check and Ruff check again after the code is modified to ensure the code is correct.
-7. Summarize the check results and modifications made.
+7. List the files checked and the results(Pass/Fail) of the checks.
+8. Summarize the check results and modifications made.
