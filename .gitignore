@@ -34,3 +34,6 @@ coverage/
 .npm
 .eslintcache
 .prettier-cache
+
+# code-test
+code-test/
