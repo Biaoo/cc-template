@@ -29,6 +29,7 @@ Scan all markdown files in the project and categorize them:
 - **Temporary/outdated docs**: Files that may be obsolete, contain outdated information, or were temporary notes
 - **Project configuration docs**: Files like CLAUDE.md, AGENTS.md, or other configuration documentation
 - **Development notes**: Meeting notes, brainstorming docs, task lists that may be outdated
+- **Root-level docs**: Identify markdown files in project root that should be moved to subdirectories (except README.md, CLAUDE.md, AGENTS.md, CONTRIBUTING.md, LICENSE, CHANGELOG.md)
 
 ### 2. Identify Documentation Issues
 
@@ -40,10 +41,23 @@ Check for:
 - **Broken references**: Links to files that no longer exist or have moved
 - **Version mismatches**: Documentation that references old versions or deprecated features
 - **Incomplete documentation**: Stub files or placeholders that were never completed
+- **Root directory clutter**: Non-essential markdown files in project root that should be moved to subdirectories
 
 ### 3. Propose Organization Structure
 
 Based on the project type, suggest organizing documentation into:
+
+**Core Principle: Keep Project Root Clean**
+
+The project root directory should contain **only essential files**:
+
+- ✅ `README.md` - Project overview
+- ✅ `CLAUDE.md` / `AGENTS.md` - AI assistant configuration
+- ✅ `CONTRIBUTING.md` - Contribution guidelines
+- ✅ `LICENSE` - License file
+- ✅ `CHANGELOG.md` - Version history (if applicable)
+
+**All other documentation** should be organized into subdirectories:
 
 **Common structure:**
 
@@ -153,6 +167,7 @@ Provide a comprehensive report including:
 - **Document your changes**: Explain reasoning for each change
 - **Be thorough**: Read file contents, don't just rely on filenames
 - **Context matters**: Consider recent git changes when identifying outdated content
+- **Keep root directory clean**: Project root should primarily contain essential files only (README.md, CLAUDE.md, AGENTS.md, CONTRIBUTING.md, LICENSE, etc.). Move other documentation to organized subdirectories like `docs/`, `references/`, or appropriate category folders
 
 ## Special Considerations
 
